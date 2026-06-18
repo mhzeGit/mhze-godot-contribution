@@ -1,8 +1,8 @@
-# Godot Engine 4.8-dev — Universal AI Context
+# Fork of Godot Engine 4.8-dev — Universal AI Context
 
 ## Project Overview
 
-- Godot Engine is a **MIT-licensed, cross-platform 2D and 3D game engine** built in C++17 with a node-based scene architecture. Its core purpose is to provide a fully self-contained, free and open-source game development environment with a built-in editor, multiple scripting languages (GDScript, C#, C++ via GDExtension), and a unified rendering API (Vulkan, GLES3, D3D12, Metal).
+- This is a **fork of the Godot Engine**, an MIT-licensed, cross-platform 2D and 3D game engine built in C++17 with a node-based scene architecture. The upstream engine provides a fully self-contained, free and open-source game development environment with a built-in editor, multiple scripting languages (GDScript, C#, C++ via GDExtension), and a unified rendering API (Vulkan, GLES3, D3D12, Metal). This fork may introduce custom changes, modules, or modifications on top of the upstream base.
 - **Target platform:** desktop, mobile, web, and console game releases. Built with **SCons** (`>=4.4`, Python `>=3.9`). Default target is `editor`; release builds use `template_release` / `template_debug`. Output is a single platform-specific binary (e.g., `godot.windows.editor.x86_64.exe`).
 - Run the editor directly from `bin/` after build. No external runtime or SDK is required beyond the build tools for your platform.
 
