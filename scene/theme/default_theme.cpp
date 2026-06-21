@@ -925,6 +925,8 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 	theme->set_color("children_hl_line_color", "Tree", Color(0.27, 0.27, 0.27));
 	theme->set_color("custom_button_font_highlight", "Tree", control_font_hover_color);
 	theme->set_color("scroll_hint_color", "Tree", Color(0, 0, 0));
+	theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
+	theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0.1));
 
 	theme->set_constant("h_separation", "Tree", Math::round(4 * scale));
 	theme->set_constant("v_separation", "Tree", Math::round(4 * scale));

@@ -2319,7 +2319,7 @@ void Tree::update_item_cache(TreeItem *p_item) const {
 	}
 }
 
-int Tree::draw_item(const Point2i &p_pos, const Point2 &p_draw_ofs, const Size2 &p_draw_size, TreeItem *p_item, int &r_self_height) {
+int Tree::draw_item(const Point2i &p_pos, const Point2 &p_draw_ofs, const Size2 &p_draw_size, TreeItem *p_item, int &r_self_height, int &r_row_index) {
 	const real_t bottom_margin = theme_cache.panel_style->get_margin(SIDE_BOTTOM); // Extra stylebox space below the content
 	const real_t draw_height = p_draw_size.height + bottom_margin; // Visible height including bottom margin
 
@@ -2349,6 +2349,8 @@ int Tree::draw_item(const Point2i &p_pos, const Point2 &p_draw_ofs, const Size2 
 
 		int ofs = p_pos.x + ((p_item->disable_folding || hide_folding) ? theme_cache.h_separation : theme_cache.item_margin);
 		int skip2 = 0;
+
+		int this_row = r_row_index++;
 
 		bool is_row_hovered = (!cache.hover_header_row && cache.hover_item == p_item);
 		bool should_draw_row_rect = select_mode == SELECT_ROW;
@@ -2434,6 +2436,17 @@ int Tree::draw_item(const Point2i &p_pos, const Point2 &p_draw_ofs, const Size2 
 			if (i != 0) {
 				cell_rect.position.x -= theme_cache.h_separation;
 				cell_rect.size.x += theme_cache.h_separation;
+			}
+
+			// Zebra striping.
+			if (i == 0) {
+				Color row_bg = (this_row & 1) ? theme_cache.odd_row_bg : theme_cache.even_row_bg;
+				if (row_bg.a > 0.0f) {
+					const Rect2 content_rect = _get_content_rect();
+					Rect2i zebra_rect = Rect2i(Point2i(content_rect.position.x, item_rect.position.y), Size2i(content_rect.size.x, item_rect.size.y));
+					zebra_rect = convert_rtl_rect(zebra_rect);
+					RenderingServer::get_singleton()->canvas_item_add_rect(stylebox_ci, zebra_rect, row_bg);
+				}
 			}
 
 			if (should_draw_row_rect) {
@@ -2825,7 +2838,7 @@ int Tree::draw_item(const Point2i &p_pos, const Point2 &p_draw_ofs, const Size2 
 			int child_h = -1;
 			int child_self_height = 0;
 			if (htotal >= 0) {
-				child_h = draw_item(children_pos, p_draw_ofs, p_draw_size, c, child_self_height);
+				child_h = draw_item(children_pos, p_draw_ofs, p_draw_size, c, child_self_height, r_row_index);
 				child_self_height += theme_cache.v_separation;
 			}
 
@@ -5267,7 +5280,8 @@ void Tree::_notification(int p_what) {
 
 			if (root && get_size().x > 0 && get_size().y > 0) {
 				int self_height = 0; // Just to pass a reference, we don't need the root's `self_height`.
-				draw_item(Point2(), draw_ofs, draw_size, root, self_height);
+				int row_index = 0;
+				draw_item(Point2(), draw_ofs, draw_size, root, self_height, row_index);
 
 				// Draw drop indicator.
 				if (drop_mode_flags && drop_mode_over) {
@@ -7417,6 +7431,8 @@ void Tree::_bind_methods() {
 
 	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, Tree, draw_guides);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Tree, guide_color);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Tree, odd_row_bg);
+	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Tree, even_row_bg);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, Tree, draw_relationship_lines);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, Tree, relationship_line_width);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_CONSTANT, Tree, parent_hl_line_width);
