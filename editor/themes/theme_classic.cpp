@@ -664,7 +664,7 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 			p_theme->set_color("drop_position_color", "Tree", p_config.icon_normal_color);
 			if (EDITOR_GET("interface/theme/use_zebra_striping")) {
 				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
-				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0.1));
+				p_theme->set_color("even_row_bg", "Tree", EDITOR_GET("interface/theme/zebra_row_color"));
 			} else {
 				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
 				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0));

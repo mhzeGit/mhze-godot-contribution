@@ -688,7 +688,7 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 			p_theme->set_color("scroll_hint_color", "Tree", Color(0, 0, 0, p_config.dark_theme ? 1.0 : 0.5));
 			if (EDITOR_GET("interface/theme/use_zebra_striping")) {
 				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
-				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0.1));
+				p_theme->set_color("even_row_bg", "Tree", EDITOR_GET("interface/theme/zebra_row_color"));
 			} else {
 				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
 				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0));
