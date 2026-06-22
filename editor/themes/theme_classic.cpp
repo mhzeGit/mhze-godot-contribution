@@ -662,6 +662,13 @@ void ThemeClassic::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edi
 			p_theme->set_color("children_hl_line_color", "Tree", children_line_color);
 			p_theme->set_color("drop_on_item_color", "Tree", p_config.accent_color);
 			p_theme->set_color("drop_position_color", "Tree", p_config.icon_normal_color);
+			if (EDITOR_GET("interface/theme/use_zebra_striping")) {
+				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
+				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0.1));
+			} else {
+				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
+				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0));
+			}
 
 			Ref<StyleBoxFlat> style_tree_btn = p_config.base_style->duplicate();
 			style_tree_btn->set_bg_color(p_config.highlight_color);

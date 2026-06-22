@@ -686,6 +686,13 @@ void ThemeModern::populate_standard_styles(const Ref<EditorTheme> &p_theme, Edit
 			p_theme->set_color("drop_position_color", "Tree", p_config.icon_normal_color);
 			p_theme->set_color("guide_color", "Tree", Color(1, 1, 1, 0));
 			p_theme->set_color("scroll_hint_color", "Tree", Color(0, 0, 0, p_config.dark_theme ? 1.0 : 0.5));
+			if (EDITOR_GET("interface/theme/use_zebra_striping")) {
+				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
+				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0.1));
+			} else {
+				p_theme->set_color("odd_row_bg", "Tree", Color(0, 0, 0, 0));
+				p_theme->set_color("even_row_bg", "Tree", Color(0, 0, 0, 0));
+			}
 
 			Ref<StyleBoxFlat> style_tree_hover = p_config.flat_button_hover->duplicate();
 			style_tree_hover->set_content_margin_all(0);
